@@ -1,0 +1,63 @@
+{
+  "nodes": {
+    "decode-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787644164,
+        "narHash": "sha256-4axn3T4fSAe9Z0I3L58vjYOla2OggIp7PqS+oC0ZmtE=",
+        "owner": "tasmota",
+        "repo": "decode-config",
+        "rev": "0f0f21d8e063de7e641962f870e965f70efdf288",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tasmota",
+        "ref": "v15.6.0",
+        "repo": "decode-config",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1791956154,
+        "narHash": "sha256-jBYGPi4udQ9uo4KQp9m2J0546nJVQitG15gvZSaVVAs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "55bfb4d7437bd4e09ab7cba58a43bd68eb310044",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "decode-config": "decode-config",
+        "nixpkgs": "nixpkgs",
+        "tasmota": "tasmota"
+      }
+    },
+    "tasmota": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792135689,
+        "narHash": "sha256-t5oAemd6UsE+T5PjDeLZL7ELUXliOdHMGXgTOZ5DXUY=",
+        "owner": "arendst",
+        "repo": "Tasmota",
+        "rev": "1c2173927cdf1be61759bcc3b064b9511a18e5d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "arendst",
+        "ref": "v16.0.0",
+        "repo": "Tasmota",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
