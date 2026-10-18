@@ -152,3 +152,7 @@ for it (for example with Edge Impulse). Tasmota has no face detection.
 
 Frigate runs this camera as `cameras.xiao` on an RK3566 board: MJPEG from
 `http://192.168.1.50:81/stream`, detection at 800x600 and 5 fps on the RK NPU.
+
+Frigate decodes and downscales the stream on the RK3566's MPP/RGA
+(`hwaccel_args: preset-rkmpp`, using the same Rockchip-enabled jellyfin-ffmpeg
+as Jellyfin). That dropped the XIAO's ffmpeg CPU from about 40-50% to about 10%.
