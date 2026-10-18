@@ -1,0 +1,14 @@
+--- a/tasmota/tasmota_xdrv_driver/xdrv_81_esp32_webcam_task.ino	2026-10-18 05:48:37.747657286 +0530
++++ b/tasmota/tasmota_xdrv_driver/xdrv_81_esp32_webcam_task.ino	2026-10-18 05:49:16.035962119 +0530
+@@ -1165,6 +1165,11 @@
+   }
+ 
+ 
++  // PSRAM DMA drops every OV3660 JPEG frame as NO-EOI (espressif/esp32-camera#853),
++  // so fb_get times out. Fall back to the internal-RAM DMA path. Returns
++  // ESP_ERR_INVALID_STATE before init, but the mode is stored anyway.
++  esp_camera_set_psram_mode(false);
++
+   esp_err_t err;
+   // cannot hurt to retry...
+   for (int i = 0; i < 3; i++){

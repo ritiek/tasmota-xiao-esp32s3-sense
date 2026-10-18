@@ -23,7 +23,7 @@
       pioarduino = pkgs:
         let
           py = pkgs.python3.pkgs;
-          core = py.buildPythonApplication rec {
+          core = py.buildPythonPackage rec {
             pname = "pioarduino";
             version = "6.2.0";
             format = "wheel";
@@ -41,8 +41,12 @@
         pkgs.buildFHSEnv {
           pname = "pio";
           inherit (core) version;
-          targetPkgs = p: [ core p.zlib p.git p.libusb1 p.ncurses p.udev p.cmake p.ninja p.uv ]
-            ++ (with p.python3.pkgs; [ p.python3 setuptools pip wheel virtualenv ]);
+          # The platform runs helper scripts (idf_tools.py, SCons) with PlatformIO's own
+          # python, so that interpreter must see pioarduino and certifi.
+          targetPkgs = p: [
+            (pkgs.python3.withPackages (_: [ core py.certifi py.setuptools py.pip py.wheel py.virtualenv ]))
+            p.zlib p.git p.libusb1 p.ncurses p.udev p.cmake p.ninja p.uv
+          ];
           runScript = "pio";
         };
     in
@@ -62,6 +66,14 @@
       apps = forAllSystems (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          tasmotaSrc = pkgs.applyPatches {
+            name = "tasmota-src";
+            src = tasmota;
+            patches = [
+              ./firmware/patches/0001-webcam-disable-psram-dma.patch
+              ./firmware/patches/0002-webcam-start-stream-server-on-network-up.patch
+            ];
+          };
           app = name: runtimeInputs: text: {
             type = "app";
             program = pkgs.lib.getExe (pkgs.writeShellApplication { inherit name runtimeInputs text; });
@@ -74,7 +86,8 @@
             [ -f "$root/firmware/platformio_override.ini" ] || { echo "run from the repo root" >&2; exit 1; }
             src=$root/build/tasmota
             mkdir -p "$src"
-            rsync -a --chmod=Du+w,Fu+w ${tasmota}/ "$src"/
+            # No -t: files that changed get a fresh mtime so SCons rebuilds them.
+            rsync -rlp --checksum --chmod=Du+w,Fu+w ${tasmotaSrc}/ "$src"/
             cp "$root/firmware/platformio_override.ini" "$src/platformio_override.ini"
             cp "$root/firmware/user_config_override.h" "$src/tasmota/user_config_override.h"
             export PLATFORMIO_CORE_DIR=$root/build/platformio

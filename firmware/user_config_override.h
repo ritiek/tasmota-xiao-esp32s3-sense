@@ -8,6 +8,23 @@
 #undef  STA_PASS1
 #define STA_PASS1         "your-password"
 
+// The safeboot image is built with this header too; keep it minimal.
+#ifndef FIRMWARE_SAFEBOOT
+#define CODE_IMAGE_STR    "xiao-sense"
+
+// Camera: v2 task driver (MJPEG stream on :81, snapshots, motion detection) + RTSP
+#define USE_WEBCAM
+#define USE_WEBCAM_V2
+#define ENABLE_RTSPSERVER
+#define USE_SPI
+#define USE_SDCARD
+#define USE_I2C
+// BLE 5.0: NimBLE driver, BLE sensor bridge, Berry BLE
+#define CONFIG_NIMBLE_CPP_IDF 1
+#define USE_BLE_ESP32
+#define USE_MI_ESP32
+#endif
+
 #undef  PROJECT
 #define PROJECT           "xiao-sense"
 #undef  FRIENDLY_NAME
@@ -27,9 +44,12 @@
 #define FALLBACK_MODULE   USER_MODULE
 
 // Runs once after a settings reset (first boot after a full flash).
-// OV3660 is mounted upside down: flip it back and apply Espressif's OV3660 tuning.
+// WiFi no-sleep + Sleep 0 roughly doubles the stream frame rate (3 -> 8 fps at UXGA).
+// OV3660 is mounted upside down: WcFlip 1. Brightness +1 / saturation -2 as in
+// Espressif's CameraWebServer for OV3660 (saturation 0 has a green cast).
+// UXGA (15, 1600x1200) streams at ~8 fps; QXGA (19, 2048x1536) works but ~5 fps.
 // Mic: PDM, 16 kHz (what TFL "MIC" keyword spotting needs).
 #undef  USER_BACKLOG
-#define USER_BACKLOG      "WcFlip 1;WcBrightness 1;WcSaturation -2;WcResolution 11;I2SConfig {\"Rx\":{\"Mode\":1,\"SampleRate\":16000}}"
+#define USER_BACKLOG      "SetOption127 1;Sleep 0;SetOption146 1;WcStream 1;WcResolution 15;WcFlip 1;WcMirror 0;WcBrightness 1;WcSaturation -2;WcContrast 0;I2SConfig {\"Rx\":{\"Mode\":1,\"SampleRate\":16000}}"
 
 #endif  // _USER_CONFIG_OVERRIDE_H_

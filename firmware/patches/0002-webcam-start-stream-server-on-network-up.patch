@@ -1,0 +1,14 @@
+--- a/tasmota/tasmota_xdrv_driver/xdrv_81_esp32_webcam_task.ino	2026-10-18 09:07:18.050832696 +0530
++++ b/tasmota/tasmota_xdrv_driver/xdrv_81_esp32_webcam_task.ino	2026-10-18 09:07:23.702861297 +0530
+@@ -3101,6 +3101,11 @@
+       WcSetStreamserver(Settings->webcam_config.stream);
+       WCStartOperationTask();
+       break;
++    case FUNC_NETWORK_UP:
++      // WiFi is still down at FUNC_INIT, where WcSetStreamserver() bails out,
++      // so the port 81 server would otherwise only start once the web UI is opened.
++      WcSetStreamserver(Settings->webcam_config.stream);
++      break;
+ 
+     case FUNC_ABOUT_TO_RESTART: {
+       // this code will kill off the cam completely, allowing nice clean restarts
