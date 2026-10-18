@@ -1,0 +1,28 @@
+microSD card from the XIAO, checked on a PC (x86_64, native SD reader), 2026-10-18
+
+Kernel: mmc0: new high speed SDXC card at address 2185
+        mmcblk0: mmc0:2185 APPSD 117 GiB
+
+/sys/block/mmcblk0/device:
+  name=APPSD  manfid=0x000000  oemid=0x0000  date=01/2023  serial=0x12800005
+  hwrev=0x0  fwrev=0x0
+  cid=00000041505053440012800005017101
+  csd=400e00325b590003a97f7f8006400001
+  size=245760000 sectors (exactly 120000 MiB)
+Manufacturer and OEM IDs of zero mean an unregistered (no-name or counterfeit) card.
+
+f3probe 10.0 (non-destructive mode):
+  Bad news: The device `/dev/mmcblk0' is damaged
+  *Usable* size: 0.00 Bytes (0 blocks)
+  Announced size: 117.19 GB (245760000 blocks)
+  Write: 10.92s / 35 = 312.0ms
+  dmesg: mmcblk0: recovery failed!
+         I/O error, dev mmcblk0, sector 36700866 op 0x1:(WRITE)
+
+Direct 4 KiB write + readback at sector 0:
+  dd: error writing '/dev/mmcblk0': Input/output error
+  dmesg: I/O error, dev mmcblk0, sector 0 op 0x1:(WRITE)
+  readback differs from byte 3585 (first 7 sectors written, 8th failed)
+
+Verdict: reads work, writes fail. The card is defective, which matches the
+write hangs seen on the ESP32. Replace it.

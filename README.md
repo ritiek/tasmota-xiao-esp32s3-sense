@@ -123,8 +123,10 @@ The driver is built in (SPI on GPIO 7/8/9, CS 21) and mounts a FAT32 card at
 boot with the log line `UFS: SDCard mounted`. The card in the slot (128 GB,
 an old SBC root file system) reads fine, but any sustained write hangs it
 until power is cut. This was tested with a bare Arduino sketch on the same
-pins, at 4 and 20 MHz, with single- and multi-block writes. That points at a worn or fake card.
-Its old partition table has been wiped.
+pins, at 4 and 20 MHz, with single- and multi-block writes. On a PC reader
+the card shows zero manufacturer and OEM IDs (`APPSD`, an unregistered no-name
+card), `f3probe` reports 0 bytes usable, and plain `dd` writes fail with I/O
+errors. Details in `docs/sdcard.txt`.
 
 To use the SD card: insert a known-good card, 32 GB or smaller, formatted
 FAT32, and reboot.
