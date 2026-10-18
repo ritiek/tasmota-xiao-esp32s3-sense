@@ -115,27 +115,29 @@ board returns an empty reply.
 | Berry | Works | Runs the TFL test |
 | BLE | Works, off by default | `SetOption115 1` (restarts). Found a nearby device. Scanning cuts the camera stream to about a third, so it stays off |
 | OTA upgrade | Works | Web UI upgrade through safeboot, settings kept |
-| microSD | Driver in, card faulty | See below |
+| microSD | Works | 64 GB FAT32 card mounted at boot; `WcSavePic0 /sd/cam_test.jpg` and `I2SRec2 /mic_sd.opus` wrote valid files to it |
 
 ### microSD
 
-The driver is built in (SPI on GPIO 7/8/9, CS 21) and mounts a FAT32 card at
-boot with the log line `UFS: SDCard mounted`. The card in the slot (128 GB,
-an old SBC root file system) reads fine, but any sustained write hangs it
-until power is cut. This was tested with a bare Arduino sketch on the same
-pins, at 4 and 20 MHz, with single- and multi-block writes. On a PC reader
-the card shows zero manufacturer and OEM IDs (`APPSD`, an unregistered no-name
-card), `f3probe` reports 0 bytes usable, and plain `dd` writes fail with I/O
-errors. Details in `docs/sdcard.txt`.
+SPI on GPIO 7/8/9, CS 21. The card is only probed at boot, so insert it before
+powering up. It must be FAT32 (no exFAT in the firmware); larger cards work if
+formatted FAT32 on a PC. A mounted card logs
+`UFS: SDCard mounted (SPI bus1) with ... kB free` and `UfsType` returns `[1,3]`.
 
-To use the SD card: insert a known-good card, 32 GB or smaller, formatted
-FAT32, and reboot.
+With a card in, the card is the default file system: the web file manager,
+uploads and `I2SRec` paths go to the card. Berry and `WcSavePic` use the flash
+file system, where `/sd/...` reaches the card. `/ufsd?dir=2` switches the file
+manager and uploads to flash, `/ufsd?dir=1` back to the card.
+
+The first card tried was defective (writes hung it); see `docs/sdcard.txt`.
 
 ### Machine learning
 
-TFLite Micro runs Berry-driven models from the file system:
+TFLite Micro runs Berry-driven models from the file system. The first line
+points uploads at flash (needed only when an SD card is inserted):
 
 ```sh
+curl -H 'Referer: http://192.168.1.50/' -o /dev/null 'http://192.168.1.50/ufsd?dir=2'
 curl -H 'Referer: http://192.168.1.50/' -F ufsu=@ml/hello_world_float.tflite http://192.168.1.50/ufsu
 curl -H 'Referer: http://192.168.1.50/' -F ufsu=@ml/sine_test.be http://192.168.1.50/ufsu
 curl -H 'Referer: http://192.168.1.50/' -G --data-urlencode 'cmnd=Br load("/sine_test.be")' http://192.168.1.50/cm

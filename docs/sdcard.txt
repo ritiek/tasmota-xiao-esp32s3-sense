@@ -26,3 +26,19 @@ Direct 4 KiB write + readback at sector 0:
 
 Verdict: reads work, writes fail. The card is defective, which matches the
 write hangs seen on the ESP32. Replace it.
+
+
+Replacement card, checked on a PC, 2026-10-18
+
+  name=SD64G  manfid=0x000027 (Phison)  oemid=0x5048  date=10/2020
+  size=122138624 sectors (58.2 GiB SDXC)
+f3probe --time-ops: "Good news: The device `/dev/mmcblk0' is the real thing"
+  usable size = announced size, 58.24 GB; write 22.8 us/block, no I/O errors
+Formatted: MBR, one partition from sector 2048, type 0x0c,
+  mkfs.fat -F 32 -n XIAO /dev/mmcblk0p1
+
+On the XIAO after a power cycle:
+  UFS: SDCard mounted (SPI bus1) with 61053280 kB free
+  WcSavePic0 /sd/cam_test.jpg -> 58427 bytes, valid 1600x1200 JPEG
+  I2SRec2 /mic_sd.opus        -> 19196 bytes, 8.3 s WebM Opus
+  hello.txt written on the PC reads back as "hello-from-pc"
