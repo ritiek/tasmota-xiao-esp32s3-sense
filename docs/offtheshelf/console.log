@@ -1,0 +1,36 @@
+53}11}100:00:00.001 CMD: Using USB CDC
+00:00:00.001 HDW: ESP32-S3 v0.2 (PSRAM)
+00:00:00.010 UFS: FlashFS mounted with 4400 kB free
+00:00:00.014 CFG: Loaded from File, Count 9
+00:00:00.016 SER: Set to 8N1 115200 bit/s
+00:00:00.016 SER: HWCDC supports 115200 bit/s only
+00:00:00.019 QPC: Count 1
+00:00:00.021 SPI: Bus1 using GPIO07(CLK), GPIO09(MOSI) and GPIO08(MISO)
+00:00:01.286 BRY: Berry initialized, RAM used 5223 bytes
+00:00:01.293 Project tasmota - Tasmota Version 16.0.0.1(6776e2e-tasmota32-s3-big)-3.3.12(2026-10-17T12:50:32)
+00:00:05.667 CAM: Init failed !frame on time
+00:00:07.000 WIF: Connecting to AP1 your-2.4GHz-ssid Channel 1 BSSId XX:XX:XX:XX:XX:XX (LastUsed) in mode HT20 as tasmota-XXXXXX-XXXX...
+00:00:09.432 WIF: Connected
+00:00:09.685 HTP: Web server active on tasmota-XXXXXX-XXXX with IP address 192.168.1.50
+00:00:12.920 QPC: Reset
+00:00:13.926 RSL: INFO1 = {"Info1":{"Module":"XIAO ESP32S3 Sense","Version":"16.0.0.1(6776e2e-tasmota32-s3-big)","FallbackTopic":"cmnd/DVES_XXXXXX_fb/","GroupTopic":"cmnd/tasmotas/"}}
+00:00:13.927 RSL: INFO2 = {"Info2":{"WebServerMode":"Admin","Hostname":"tasmota-XXXXXX-XXXX","IPAddress":"192.168.1.50","IP6Global":"","IP6Local":"fe80::xxxx:xxxx:xxxx:xxxx%st2"}}
+00:00:13.928 RSL: INFO3 = {"Info3":{"RestartReason":"Software reset CPU","BootCount":3}}
+00:00:17.731 RSL: STATE = {"Time":"1970-01-01T00:00:17","Uptime":"0T00:00:13","UptimeSec":13,"Heap":195,"SleepMode":"Dynamic","Sleep":50,"LoadAvg":149,"MqttCount":0,"Berry":{"HeapUsed":5,"Objects":62},"Wifi":{"AP":1,"SSId":"your-2.4GHz-ssid","BSSId":"XX:XX:XX:XX:XX:XX","Channel":1,"Mode":"HT20","RSSI":100,"Signal":-25,"LinkCount":1,"Downtime":"0T00:00:04"},"Hostname":"tasmota-XXXXXX-XXXX","IPAddress":"192.168.1.50"}
+00:43:18.846 RSL: RESULT = {"GPIO1":{"None":0},"GPIO2":{"None":0},"GPIO3":{"None":0},"GPIO4":{"None":0},"GPIO5":{"None":0},"GPIO6":{"None":0},"GPIO43":{"None":0},"GPIO44":{"None":0}}
+00:43:19.046 RSL: RESULT = {"WC":{"Stream":1,"Resolution":6,"Mirror":0,"Flip":1,"Saturation":-2,"Brightness":1,"Contrast":0,"SpecialEffect":0,"AWB":1,"WBMode":0,"AWBGain":1,"AEC":1,"AECValue":204,"AELevel":0,"AECDSP":1,"AGC":1,"AGCGain":5,"GainCeiling":0,"GammaCorrect":1,"LensCorrect":1,"WPC":1,"DCW":1,"BPC":0,"Colorbar":0,"Feature":0,"Auth":0,"Clock":20,"MenuVideoDisable":0,"Rtsp":0}}
+00:43:25.989 RSL: RESULT = {"UfsType":3}
+00:43:26.193 RSL: RESULT = {"UfsSize":4416}
+00:43:26.448 RSL: RESULT = {"UfsFree":4400}
+00:43:26.639 RSL: STATUS1 = {"StatusPRM":{"Baudrate":115200,"SerialConfig":"8N1","GroupTopic":"tasmotas","OtaUrl":" ","RestartReason":"Software reset CPU","Uptime":"0T00:00:26","StartupUTC":"2026-10-17T23:43:00","Sleep":50,"CfgHolder":4617,"BootCount":3,"BCResetTime":"2026-10-18T00:42:10","SaveCount":10}}
+00:43:26.889 RSL: RESULT = {"WCStats":{"FPS":0,"CamFail":0,"JpegFail":0,"ClientFail":0,"AvgFPS":*float*,"AvgFPeriod":0,"AvgFProcessing":0,"LastFrameBytes":0,"WebClients":0,"RTSPClients":0,"CamInterval":0,"CamFrameTime":0,"LoopsPerSec":21}}
+00:43:34.040 CAM: InitErr 0x103 try 1
+00:43:34.388 CAM: InitOK try 2
+00:43:38.403 CAM: Init failed !frame on time
+00:43:38.404 RSL: RESULT = {"WCInit":"Done"}
+00:44:06.121 RSL: RESULT = {"WCClock":10}
+00:44:06.310 CAM: InitErr 0x103 try 1
+00:44:06.658 CAM: InitOK try 2
+00:44:10.673 CAM: Init failed !frame on time
+00:44:10.674 RSL: RESULT = {"WCInit":"Done"}
+00:44:48.043 RSL: STATUS4 = {"StatusMEM":{"ProgramSize":2845,"Free":34,"Heap":160,"StackLowMark":19,"PsrMax":5376,"PsrFree":3091,"ProgramFlashSize":8192,"FlashSize":8192,"FlashChipId":"1740C8","FlashFrequency":80,"FlashMode":"QIO","Features":["0809","9FBAD7DF","0015A021","B7F7BFCF","0DD89BC4","E0360DC3","C8084092","20200000","5438483D","810A80D1","00200814"],"Drivers":"1,2,!3,!4,!5,7,!8,9,10,11,12,13,!14,!16,!17,!20,!21,!24,26,!27,29,!34,!35,38,50,52,54,55,!56,!59,!60,62,!63,!66,!67,!68,!73,!75,81,82,!91,!121","Sensors":"1,2,3,5,6,7,8,9,10,11,12,13,14,15,17,18,19,20,21,22,26,31,34,37,39,40,42,43,45,46,51,55,56,58,59,64,66,74,85,92,95,98,103,105,109,119,127","I2CDriver":"7,8,9,10,11,12,13,14,15,17,18,20,24,29,31,32,36,41,42,44,46,58,59,62,69,76,77,82,89,97"}}}1

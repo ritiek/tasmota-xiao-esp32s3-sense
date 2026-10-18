@@ -1,0 +1,12 @@
+09:03:12.229 TFL: start TFL context with type: BUF
+09:03:12.916 TFL x=0.00 model=0.026 sin=0.000
+09:03:13.066 TFL x=0.50 model=0.454 sin=0.479
+09:03:13.216 TFL x=1.00 model=0.863 sin=0.841
+09:03:13.366 TFL x=1.57 model=0.996 sin=1.000
+09:03:13.616 TFL x=2.50 model=0.596 sin=0.598
+09:03:13.816 TFL x=3.14 model=-0.003 sin=0.002
+09:03:14.066 TFL x=4.00 model=-0.769 sin=-0.757
+09:03:14.316 TFL x=4.71 model=-1.005 sin=-1.000
+09:03:14.567 TFL x=5.50 model=-0.705 sin=-0.706
+09:03:14.816 TFL x=6.00 model=-0.280 sin=-0.279
+09:03:14.817 TFL stats |ÂÊ?|ÂÊ?:{"input_shape":[1,1],"input_type":1,"output_shape":[1,1],"output_type":1},"session":{"used_arena":720,"loop_stack":680,"invocations":10}}}1
