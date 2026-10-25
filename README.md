@@ -3,6 +3,13 @@
 Custom Tasmota v16.0.0 build for this board with camera, microphone, SD card
 driver, Berry, TFLite Micro and BLE compiled in.
 
+**Hey hoomans! This is heavily AI assisted work. I mainly put this up because I was able to
+get things working on my board and thought it could serve as a useful reference. Much of the
+functionality works but the entire thing is malnourished in the form of human care. I can't
+maintain this. Feel free to use this work as a reference and build upon it. Cheerios 🥂.**
+
+----------------------------
+
 ## Quick start
 
 ```sh
@@ -164,3 +171,7 @@ Frigate runs this camera as `cameras.xiao` on an RK3566 board: MJPEG from
 Frigate decodes and downscales the stream on the RK3566's MPP/RGA
 (`hwaccel_args: preset-rkmpp`, using the same Rockchip-enabled jellyfin-ffmpeg
 as Jellyfin). That dropped the XIAO's ffmpeg CPU from about 40-50% to about 10%.
+
+## License
+
+GNU GPL v3 (since this work is built upon Tasmota itself). See LICENSE for more info.
