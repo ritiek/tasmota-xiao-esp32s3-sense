@@ -1,3 +1,6 @@
 /build/
 /result
 /result-*
+# Original firmware dump: contains WiFi and web passwords, kept locally only.
+/backup/
+/firmware/secrets.h

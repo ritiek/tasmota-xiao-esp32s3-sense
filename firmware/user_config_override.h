@@ -3,10 +3,11 @@
 
 // Seeed Studio XIAO ESP32S3 Sense (OV3660 + PDM mic + microSD)
 
-#undef  STA_SSID1
-#define STA_SSID1         "your-2.4GHz-ssid"
-#undef  STA_PASS1
-#define STA_PASS1         "your-password"
+// WiFi credentials live in the gitignored secrets.h (see secrets.h.example).
+// Without it the board starts with no WiFi set; configure it from its AP portal.
+#if __has_include("secrets.h")
+#include "secrets.h"
+#endif
 
 // The safeboot image is built with this header too; keep it minimal.
 #ifndef FIRMWARE_SAFEBOOT

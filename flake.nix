@@ -90,6 +90,11 @@
             rsync -rlp --checksum --chmod=Du+w,Fu+w ${tasmotaSrc}/ "$src"/
             cp "$root/firmware/platformio_override.ini" "$src/platformio_override.ini"
             cp "$root/firmware/user_config_override.h" "$src/tasmota/user_config_override.h"
+            if [ -f "$root/firmware/secrets.h" ]; then
+              cp "$root/firmware/secrets.h" "$src/tasmota/secrets.h"
+            else
+              rm -f "$src/tasmota/secrets.h"
+            fi
             export PLATFORMIO_CORE_DIR=$root/build/platformio
             cd "$src"
             # Build safeboot locally instead of downloading a prebuilt one for the factory image.

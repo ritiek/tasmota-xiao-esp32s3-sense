@@ -1,15 +1,20 @@
 # Tasmota for the Seeed XIAO ESP32S3 Sense (OV3660, PDM mic, 8 MB)
 
 Custom Tasmota v16.0.0 build for this board with camera, microphone, SD card
-driver, Berry, TFLite Micro and BLE compiled in, plus a backup of the firmware
-it shipped with.
+driver, Berry, TFLite Micro and BLE compiled in.
 
 ## Quick start
 
 ```sh
+cp firmware/secrets.h.example firmware/secrets.h   # optional: WiFi SSID/password baked in
 nix run .#build          # ~45 min cold, ~8 min incremental; output in build/out/
 nix run .#flash          # erase + flash build/out/*.factory.bin via $XIAO_HOST (resets settings)
 ```
+
+Without `firmware/secrets.h` the board starts with no WiFi configured and
+opens its own access point for setup. `nix run .#flash` copies the image to
+`$XIAO_HOST` (the machine the board is
+plugged into) and runs esptool there.
 
 For an upgrade that keeps settings, upload `build/out/tasmota32s3-xiao-sense.bin`
 in the web UI (Firmware Upgrade). That path was tested: it boots into the
@@ -35,12 +40,13 @@ patch 0001.
 |---|---|
 | `flake.nix` | Pins Tasmota v16.0.0, nixpkgs and decode-config. Packages pioarduino 6.2.0 (Tasmota's PlatformIO fork) in an FHS env. Apps `build` and `flash` |
 | `firmware/platformio_override.ini` | Build env `tasmota32s3-xiao-sense`: board `esp32s3-qio_opi`, 8 MB, I2S audio, TFLite + ESP-NN |
-| `firmware/user_config_override.h` | WiFi, GPIO template, camera/SD/BLE defines, first-boot command list |
+| `firmware/user_config_override.h` | GPIO template, camera/SD/BLE defines, first-boot command list |
+| `firmware/secrets.h.example` | WiFi credentials template; copy to the gitignored `firmware/secrets.h` |
 | `firmware/partitions_8MB.csv` | Upstream 8 MB layout with the file system already filling the flash |
 | `firmware/patches/` | Two fixes to Tasmota's webcam driver (below) |
 | `ml/` | TFLite smoke test (sine model + Berry script) |
 | `docs/` | Test evidence: mic spectrogram, TFL log, off-the-shelf test |
-| `backup/` | The original firmware, full flash dump and decoded config. See `backup/README.md` |
+| `backup/` | Gitignored. Local-only dump of the firmware the board came with (holds its passwords) |
 
 The build is not a pure Nix derivation: PlatformIO downloads its toolchain
 into `build/platformio`. Sources and versions are pinned, though.
