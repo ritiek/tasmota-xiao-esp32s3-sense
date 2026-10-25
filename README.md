@@ -12,9 +12,9 @@ nix run .#flash          # erase + flash build/out/*.factory.bin via $XIAO_HOST 
 ```
 
 Without `firmware/secrets.h` the board starts with no WiFi configured and
-opens its own access point for setup. `nix run .#flash` copies the image to
-`$XIAO_HOST` (the machine the board is
-plugged into) and runs esptool there.
+opens its own access point for setup. `secrets.h` can also set the timezone
+(see the example). `nix run .#flash` copies the image to `$XIAO_HOST` (the
+machine the board is plugged into) and runs esptool there.
 
 For an upgrade that keeps settings, upload `build/out/tasmota32s3-xiao-sense.bin`
 in the web UI (Firmware Upgrade). That path was tested: it boots into the
@@ -98,6 +98,8 @@ GPIO3, which is wrong for the stock board.
   at 50-57 C while streaming; Seeed recommends the heat sink.
 
 ## Endpoints
+
+`192.168.1.50` stands in for the board's address throughout.
 
 | URL | What |
 |---|---|
